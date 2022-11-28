@@ -44,27 +44,31 @@ DEFAULT_PACKAGES.nas:=\
 # For router targets
 DEFAULT_PACKAGES.router:=\
 	dnsmasq-full \
+	kmod-ipt-nat \
++	kmod-ipt-nat6 \
 	firewall \
+	ip6tables \
 	iptables \
+	kmod-ipt-offload \
+	odhcp6c \
+	odhcpd-ipv6only \
 	ppp \
 	ppp-mod-pppoe
-# For easy usage
-DEFAULT_PACKAGES.tweak:=\
-	block-mount \
-	default-settings-chn \
-	kmod-ipt-raw \
-	kmod-nf-nathelper \
-	kmod-nf-nathelper-extra \
-	luci \
-	luci-app-filetransfer \
-	luci-app-turboacc \
-	luci-compat \
-	luci-lib-base \
-	luci-lib-fs \
-	luci-lib-ipkg
 
 ifneq ($(DUMP),)
   all: dumpinfo
+endif
+
+ifeq ($(ARCH),arm)
+  DEFAULT_PACKAGES+=autocore-arm luci-app-cpufreq
+endif
+
+ifeq ($(ARCH),aarch64)
+  DEFAULT_PACKAGES+=autocore-arm luci-app-cpufreq
+endif
+
+ifneq ($(CONFIG_USB_SUPPORT),)
+  DEFAULT_PACKAGES+=automount
 endif
 
 target_conf=$(subst .,_,$(subst -,_,$(subst /,_,$(1))))
