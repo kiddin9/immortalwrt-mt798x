@@ -356,7 +356,7 @@ TARGET_DEVICES += mediatek_mt7986-fpga-ubi
 
 define Device/xiaomi_redmi-router-ax6000
   DEVICE_VENDOR := Xiaomi
-  DEVICE_MODEL := Redmi Router AX6000
+  DEVICE_MODEL := Redmi Router AX6000 (Uboot专用)
   DEVICE_DTS := mt7986a-xiaomi-redmi-router-ax6000
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := kmod-leds-ws2812b
@@ -374,7 +374,7 @@ TARGET_DEVICES += xiaomi_redmi-router-ax6000
 
 define Device/xiaomi_redmi-router-ax6000-stock
   DEVICE_VENDOR := Xiaomi
-  DEVICE_MODEL := Redmi Router AX6000 (stock layout)
+  DEVICE_MODEL := Redmi Router AX6000 (原厂布局)
   DEVICE_DTS := mt7986a-xiaomi-redmi-router-ax6000-stock
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := kmod-leds-ws2812b
