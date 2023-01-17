@@ -10,7 +10,7 @@ __target_inc=1
 DEVICE_TYPE?=router
 
 # Default packages - the really basic set
-DEFAULT_PACKAGES:=\
+DEFAULT_PACKAGES:=luci-app-advanced luci-app-firewall luci-app-gpsysupgrade luci-app-opkg luci-app-upnp luci-app-autoreboot luci-app-wizard luci-base luci-compat luci-lib-ipkg luci-lib-fs coremark wget-ssl curl htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash openssh-sftp-server block-mount resolveip ds-lite swconfig \
 	base-files \
 	ca-bundle \
 	dropbear \
@@ -46,26 +46,29 @@ DEFAULT_PACKAGES.router:=\
 	dnsmasq-full \
 	firewall \
 	iptables \
-	ipv6helper \
+	ip6tables \
+	kmod-ipt-nat \
+	kmod-ipt-nat6 \
+	kmod-ipt-offload \
+	odhcp6c \
+	odhcpd-ipv6only \
 	ppp \
 	ppp-mod-pppoe
-# For easy usage
-DEFAULT_PACKAGES.tweak:=\
-	block-mount \
-	default-settings-chn \
-	kmod-ipt-raw \
-	kmod-nf-nathelper \
-	kmod-nf-nathelper-extra \
-	luci \
-	luci-app-filetransfer \
-	luci-app-turboacc \
-	luci-compat \
-	luci-lib-base \
-	luci-lib-fs \
-	luci-lib-ipkg
 
 ifneq ($(DUMP),)
   all: dumpinfo
+endif
+
+ifeq ($(ARCH),arm)
+  DEFAULT_PACKAGES+=autocore-arm luci-app-cpufreq
+endif
+
+ifeq ($(ARCH),aarch64)
+  DEFAULT_PACKAGES+=autocore-arm luci-app-cpufreq
+endif
+
+ifneq ($(CONFIG_USB_SUPPORT),)
+  DEFAULT_PACKAGES+=automount
 endif
 
 target_conf=$(subst .,_,$(subst -,_,$(subst /,_,$(1))))
@@ -205,7 +208,7 @@ LINUX_RECONF_DIFF = $(SCRIPT_DIR)/kconfig.pl - '>' $(call __linux_confcmd,$(filt
 ifeq ($(DUMP),1)
   BuildTarget=$(BuildTargets/DumpCurrent)
 
-  CPU_CFLAGS = -Os -pipe
+  CPU_CFLAGS = -O2 -pipe
   ifneq ($(findstring mips,$(ARCH)),)
     ifneq ($(findstring mips64,$(ARCH)),)
       CPU_TYPE ?= mips64
