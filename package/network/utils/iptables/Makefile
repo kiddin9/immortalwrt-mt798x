@@ -380,6 +380,19 @@ iptables extension for triggering a LED.
 
 endef
 
+define Package/iptables-mod-socket
+$(call Package/iptables/Module, +kmod-ipt-socket)
+  TITLE:=Socket match iptables extensions
+endef
+
+define Package/iptables-mod-socket/description
+Socket match iptables extensions.
+
+ Matches:
+  - socket
+
+endef
+
 define Package/iptables-mod-tproxy
 $(call Package/iptables/Module, +kmod-ipt-tproxy)
   TITLE:=Transparent proxy iptables extensions
