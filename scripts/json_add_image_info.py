@@ -48,6 +48,7 @@ image_info = {
     "profiles": {
         device_id: {
             "image_prefix": getenv("IMAGE_PREFIX"),
+            "kernel_initramfs": getenv("KERNEL_INITRAMFS"),
             "images": [
                 {
                     "type": getenv("IMAGE_TYPE"),
