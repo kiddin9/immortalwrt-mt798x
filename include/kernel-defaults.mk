@@ -115,6 +115,7 @@ endef
 
 define Kernel/CompileModules/Default
 	rm -f $(LINUX_DIR)/vmlinux $(LINUX_DIR)/System.map
+	+$(KERNEL_MAKE) olddefconfig
 	+$(KERNEL_MAKE) modules
 endef
 
