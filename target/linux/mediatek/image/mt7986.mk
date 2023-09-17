@@ -62,7 +62,7 @@ TARGET_DEVICES += mt7986a-ax6000-snfi-nand-rfb
 
 define Device/mt7986a-ax6000-emmc-re-cp-03
   DEVICE_VENDOR := JDCloud
-  DEVICE_MODEL := JDCloud MT7986a RE-CP-03
+  DEVICE_MODEL := AX6000 Baili(RE-CP-03)
   DEVICE_TITLE := JDCloud AX6000 Baili(RE-CP-03)
   DEVICE_DTS := mt7986a-emmc-re-cp-03
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
